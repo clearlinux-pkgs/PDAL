@@ -5,13 +5,14 @@
 #
 Name     : PDAL
 Version  : 2.5.6
-Release  : 2
+Release  : 3
 URL      : https://github.com/PDAL/PDAL/releases/download/2.5.6/PDAL-2.5.6-src.tar.gz
 Source0  : https://github.com/PDAL/PDAL/releases/download/2.5.6/PDAL-2.5.6-src.tar.gz
 Summary  : GoogleTest (without main() function)
 Group    : Development/Tools
 License  : BSD-3-Clause BSL-1.0 MIT
 Requires: PDAL-bin = %{version}-%{release}
+Requires: PDAL-data = %{version}-%{release}
 Requires: PDAL-lib = %{version}-%{release}
 Requires: PDAL-license = %{version}-%{release}
 BuildRequires : buildreq-cmake
@@ -41,10 +42,19 @@ On debian-based systems, copy the "pdal" file to /etc/bash_completion.d/
 %package bin
 Summary: bin components for the PDAL package.
 Group: Binaries
+Requires: PDAL-data = %{version}-%{release}
 Requires: PDAL-license = %{version}-%{release}
 
 %description bin
 bin components for the PDAL package.
+
+
+%package data
+Summary: data components for the PDAL package.
+Group: Data
+
+%description data
+data components for the PDAL package.
 
 
 %package dev
@@ -52,6 +62,7 @@ Summary: dev components for the PDAL package.
 Group: Development
 Requires: PDAL-lib = %{version}-%{release}
 Requires: PDAL-bin = %{version}-%{release}
+Requires: PDAL-data = %{version}-%{release}
 Provides: PDAL-devel = %{version}-%{release}
 Requires: PDAL = %{version}-%{release}
 
@@ -62,6 +73,7 @@ dev components for the PDAL package.
 %package lib
 Summary: lib components for the PDAL package.
 Group: Libraries
+Requires: PDAL-data = %{version}-%{release}
 Requires: PDAL-license = %{version}-%{release}
 
 %description lib
@@ -85,7 +97,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1692379604
+export SOURCE_DATE_EPOCH=1692381066
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -96,12 +108,13 @@ export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -f
 export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-%cmake .. -DWITH_TESTS=NO
+%cmake .. -DWITH_COMPLETION=YES \
+-DWITH_TESTS=NO
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1692379604
+export SOURCE_DATE_EPOCH=1692381066
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/PDAL
 cp %{_builddir}/PDAL-%{version}-src/LICENSE.txt %{buildroot}/usr/share/package-licenses/PDAL/54963270ff2cf2308cfadb429224d1b173cdb3d1 || :
@@ -120,6 +133,10 @@ popd
 %defattr(-,root,root,-)
 /usr/bin/pdal
 /usr/bin/pdal-config
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/bash-completion/completions/pdal
 
 %files dev
 %defattr(-,root,root,-)
