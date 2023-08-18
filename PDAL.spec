@@ -4,11 +4,11 @@
 # Using build pattern: cmake
 #
 Name     : PDAL
-Version  : 2.5.5
-Release  : 1
-URL      : https://github.com/PDAL/PDAL/releases/download/2.5.5/PDAL-2.5.5-src.tar.bz2
-Source0  : https://github.com/PDAL/PDAL/releases/download/2.5.5/PDAL-2.5.5-src.tar.bz2
-Summary  : Point Data Abstraction Library
+Version  : 2.5.6
+Release  : 2
+URL      : https://github.com/PDAL/PDAL/releases/download/2.5.6/PDAL-2.5.6-src.tar.gz
+Source0  : https://github.com/PDAL/PDAL/releases/download/2.5.6/PDAL-2.5.6-src.tar.gz
+Summary  : GoogleTest (without main() function)
 Group    : Development/Tools
 License  : BSD-3-Clause BSL-1.0 MIT
 Requires: PDAL-bin = %{version}-%{release}
@@ -34,11 +34,9 @@ BuildRequires : zlib-dev
 %define debug_package %{nil}
 
 %description
-https://github.com/connormanning/arbiter
-To update the bundle:
-cd <arbiter-location>
-python amalgamate -c pdal
-cp ./dist/* <pdal-location>/vendor/arbiter
+Bash commandline completion for pdal.
+See https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion.html
+On debian-based systems, copy the "pdal" file to /etc/bash_completion.d/
 
 %package bin
 Summary: bin components for the PDAL package.
@@ -79,15 +77,15 @@ license components for the PDAL package.
 
 
 %prep
-%setup -q -n PDAL-2.5.5-src
-cd %{_builddir}/PDAL-2.5.5-src
+%setup -q -n PDAL-2.5.6-src
+cd %{_builddir}/PDAL-2.5.6-src
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1691523506
+export SOURCE_DATE_EPOCH=1692379604
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -103,7 +101,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1691523506
+export SOURCE_DATE_EPOCH=1692379604
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/PDAL
 cp %{_builddir}/PDAL-%{version}-src/LICENSE.txt %{buildroot}/usr/share/package-licenses/PDAL/54963270ff2cf2308cfadb429224d1b173cdb3d1 || :
@@ -437,15 +435,15 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libpdal_base.so.15
-/usr/lib64/libpdal_base.so.15.5.0
+/usr/lib64/libpdal_base.so.15.6.0
 /usr/lib64/libpdal_plugin_kernel_fauxplugin.so.15
-/usr/lib64/libpdal_plugin_kernel_fauxplugin.so.15.5.0
+/usr/lib64/libpdal_plugin_kernel_fauxplugin.so.15.6.0
 /usr/lib64/libpdal_plugin_reader_pgpointcloud.so.15
-/usr/lib64/libpdal_plugin_reader_pgpointcloud.so.15.5.0
+/usr/lib64/libpdal_plugin_reader_pgpointcloud.so.15.6.0
 /usr/lib64/libpdal_plugin_writer_pgpointcloud.so.15
-/usr/lib64/libpdal_plugin_writer_pgpointcloud.so.15.5.0
+/usr/lib64/libpdal_plugin_writer_pgpointcloud.so.15.6.0
 /usr/lib64/libpdal_util.so.15
-/usr/lib64/libpdal_util.so.15.5.0
+/usr/lib64/libpdal_util.so.15.6.0
 
 %files license
 %defattr(0644,root,root,0755)
