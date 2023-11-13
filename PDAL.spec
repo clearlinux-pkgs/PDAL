@@ -5,7 +5,7 @@
 #
 Name     : PDAL
 Version  : 2.5.6
-Release  : 4
+Release  : 5
 URL      : https://github.com/PDAL/PDAL/releases/download/2.5.6/PDAL-2.5.6-src.tar.gz
 Source0  : https://github.com/PDAL/PDAL/releases/download/2.5.6/PDAL-2.5.6-src.tar.gz
 Summary  : GoogleTest (without main() function)
