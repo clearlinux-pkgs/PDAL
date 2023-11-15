@@ -1,0 +1,68 @@
+From d7d48c6106920500f2c20e03933833658a8e233d Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Wed, 15 Nov 2023 15:19:25 -0800
+Subject: [PATCH] Fix permissions on /usr/include/pdal
+
+Ensure we allow user to write the created directories under
+/usr/include, but we'll have to go back later to remove the execute bits
+from the actual header *files*, as this is not quite the right way to
+set these permissions.
+
+---
+ CMakeLists.txt | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5bec0d7443db..f547b4a03332 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -311,6 +311,7 @@ install(DIRECTORY ${PDAL_INCLUDE_DIR}/pdal/
+     FILES_MATCHING PATTERN "*.hpp"
+     PERMISSIONS
+         GROUP_EXECUTE WORLD_EXECUTE OWNER_EXECUTE
++        OWNER_WRITE
+         GROUP_READ WORLD_READ OWNER_READ
+ #    PATTERN "pdal/private" EXCLUDE
+ #    PATTERN "pdal/io/private" EXCLUDE
+@@ -327,6 +328,7 @@ install(DIRECTORY ${PDAL_KERNELS_DIR}/
+     FILES_MATCHING PATTERN "*.hpp"
+     PERMISSIONS
+         GROUP_EXECUTE WORLD_EXECUTE OWNER_EXECUTE
++        OWNER_WRITE
+         GROUP_READ WORLD_READ OWNER_READ
+ #    PATTERN "private" EXCLUDE
+ )
+@@ -335,6 +337,7 @@ install(DIRECTORY ${PDAL_IO_DIR}/
+     FILES_MATCHING PATTERN "*.hpp"
+     PERMISSIONS
+         GROUP_EXECUTE WORLD_EXECUTE OWNER_EXECUTE
++        OWNER_WRITE
+         GROUP_READ WORLD_READ OWNER_READ
+ #    PATTERN "private" EXCLUDE
+ )
+@@ -343,6 +346,7 @@ install(DIRECTORY ${PDAL_FILTERS_DIR}/
+     FILES_MATCHING PATTERN "*.hpp"
+     PERMISSIONS
+         GROUP_EXECUTE WORLD_EXECUTE OWNER_EXECUTE
++        OWNER_WRITE
+         GROUP_READ WORLD_READ OWNER_READ
+ #    PATTERN "private" EXCLUDE
+ )
+@@ -351,12 +355,14 @@ install(FILES ${DIMENSION_OUTFILE} ${pdal_features_hpp}/
+   DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/pdal"
+     PERMISSIONS
+         GROUP_EXECUTE WORLD_EXECUTE OWNER_EXECUTE
++        OWNER_WRITE
+         GROUP_READ WORLD_READ OWNER_READ
+ )
+ install(FILES ${PDAL_CMAKE_DIR}/pluginmacros.cmake
+     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PDAL
+     PERMISSIONS
+         GROUP_EXECUTE WORLD_EXECUTE OWNER_EXECUTE
++        OWNER_WRITE
+         GROUP_READ WORLD_READ OWNER_READ
+         )
+ 
+-- 
+2.42.1
+

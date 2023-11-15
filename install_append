@@ -1,0 +1,2 @@
+# Cleanup permissions on header files
+find %{buildroot}/usr/include -type f -exec chmod 644 {} +
