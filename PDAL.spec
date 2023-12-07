@@ -7,7 +7,7 @@
 #
 Name     : PDAL
 Version  : 2.6.0
-Release  : 9
+Release  : 10
 URL      : https://github.com/PDAL/PDAL/releases/download/2.6.0/PDAL-2.6.0-src.tar.gz
 Source0  : https://github.com/PDAL/PDAL/releases/download/2.6.0/PDAL-2.6.0-src.tar.gz
 Summary  : GoogleTest (without main() function)
