@@ -8,7 +8,7 @@
 %define keepstatic 1
 Name     : PDAL
 Version  : 2.7.2
-Release  : 35
+Release  : 36
 URL      : https://github.com/PDAL/PDAL/releases/download/2.7.2/PDAL-2.7.2-src.tar.gz
 Source0  : https://github.com/PDAL/PDAL/releases/download/2.7.2/PDAL-2.7.2-src.tar.gz
 Summary  : Point Data Abstraction Library
